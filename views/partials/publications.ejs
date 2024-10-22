@@ -17,18 +17,20 @@
       <h3>Publications</h3>
     </aside>
     <div class="section-content">
-      <% publications.forEach((publication) => { %>
+      <% let orderPublications = data[1].sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate)); %>
+      <% orderPublications.forEach((publication) => { %>
         <div class="item-row">
           <h4 class="strike-through">
-            <span><%= publication.name %></span>
-            <span class="date"><%= this.prettyDate(publication.releaseDate) %></span>
+            <span><%= publication.title %></span>
+            <% let date = content.releaseDate ? content.releaseDate.split('-').join('.') : ''; %>
+            <span class="date"><%= this.prettyDate(date) %></span>
           </h4>
           <div class="website pull-right">
             <a target="_blank" href="<%= publication.website %>"></a>
           </div>
           <div class="publisher">
-            <em>Published by</em>
-            <strong><%= publication.publisher %></strong>
+            <em>In</em>
+            <strong><%= publication.journal ?  publication.journal : publication.booktitle %></strong>
           </div>
           <div class="summary">
             <p><%= publication.summary %></p>
